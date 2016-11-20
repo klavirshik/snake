@@ -26,17 +26,31 @@ namespace Snake
             Point p = new Point(4,10,'*');
             snake Snak = new snake(p, 3, Direction.RIGHT);
             Snak.Draw();
-           
+
+            FoodCretor FoodCr = new FoodCretor(80, 25, 'O');
+            Point food = FoodCr.CreateFood();
+            food.Draw();
+
 
             while(true)
             {
-                if(Console.KeyAvailable)
+                if (Snak.Eat(food))
+                {
+                    food = FoodCr.CreateFood();
+                    food.Draw();
+                }
+                else
+                {
+                    Snak.Move();
+                }
+
+                if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
                     Snak.HandleKey(key.Key);
                 }
                 Thread.Sleep(100);
-                Snak.Move();
+              
             }
 
            
