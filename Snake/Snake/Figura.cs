@@ -10,12 +10,33 @@ namespace Snake
     {
         protected List<Point> pList;
 
-        public void Draw()
+        public virtual void Draw()
         {
             foreach (Point p in pList)
             {
                 p.Draw();
             }
+        }
+
+        internal bool IsHit(Figura fig)
+        {
+           
+            foreach (var p in pList)
+            {
+                if (fig.IsHit(p)) return true;
+            }
+            return false;
+      
+       }
+        internal bool IsHit(Point point)
+        {
+
+            foreach (var p in pList)
+            {
+                if (p.isHit(point)) return true;
+            }
+            return false;
+
         }
     }
 }

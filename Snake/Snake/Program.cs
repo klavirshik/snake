@@ -13,27 +13,30 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.SetBufferSize(80, 25);
-            vertikalLine Vline = new vertikalLine(0, 24, 0, '|');
-            Vline.Draw();
-            vertikalLine Vline1 = new vertikalLine(0, 24, 78, '|');
-            Vline1.Draw();
-            horisontalLine line = new horisontalLine(0,78,0,'-');
-            line.Draw();
-            horisontalLine line1 = new horisontalLine(0, 78, 24, '-');
-            line1.Draw();
+
+            Wall wall = new Wall(80, 25);
+            wall.Draw();
+            
             
             
             Point p = new Point(4,10,'*');
             snake Snak = new snake(p, 3, Direction.RIGHT);
             Snak.Draw();
-
+            
             FoodCretor FoodCr = new FoodCretor(80, 25, 'O');
             Point food = FoodCr.CreateFood();
             food.Draw();
 
 
+
+
             while(true)
             {
+                if(wall.IsHit(Snak)||Snak.IsHitTail())
+                {
+                    break;
+                }
+
                 if (Snak.Eat(food))
                 {
                     food = FoodCr.CreateFood();
