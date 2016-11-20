@@ -13,55 +13,74 @@ namespace Snake
         static void Main(string[] args)
         {
             Console.SetBufferSize(80, 25);
-
-            Wall wall = new Wall(80, 25);
-            wall.Draw();
-            
-            
-            
-            Point p = new Point(4,10,'*');
-            snake Snak = new snake(p, 3, Direction.RIGHT);
-            Snak.Draw();
-            
-            FoodCretor FoodCr = new FoodCretor(80, 25, 'O');
-            Food food = FoodCr.CreateFood();
-            
-            food.Draw();
-            
+            Wall wall;
+            Point p;
+            snake Snak;
+            FoodCretor FoodCr;
+            Food food;
 
 
 
-            while(true)
+            while (true)
             {
-                if(wall.IsHit(Snak)||Snak.IsHitTail())
+
+                wall = new Wall(80, 25);
+                wall.Draw();
+                p = new Point(4, 10, '*');
+                Snak = new snake(p, 3, Direction.RIGHT);
+                Snak.Draw();
+                FoodCr = new FoodCretor(80, 25, 'O');
+                food = FoodCr.CreateFood();
+                food.Draw();
+
+
+
+
+                while (true)
                 {
-                    break;
+                    if (wall.IsHit(Snak) || Snak.IsHitTail())
+                    {
+                        break;
+                    }
+
+                    if (Snak.Eat(food))
+                    {
+                        food = FoodCr.CreateFood();
+                        food.Draw();
+                    }
+                    else
+                    {
+                        Snak.Move();
+                    }
+
+                    if (Console.KeyAvailable)
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey();
+                        Snak.HandleKey(key.Key);
+                    }
+                    Thread.Sleep(100);
+
                 }
 
-                if (Snak.Eat(food))
+                GameOver GO = new GameOver("GAME OVER");
+                GO.Draw();
+                
+                while (true)
                 {
-                    food = FoodCr.CreateFood();
-                    food.Draw();
+                    if (Console.KeyAvailable)
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey();
+                        if (key.Key == ConsoleKey.Escape)
+                        {
+                            Environment.Exit(0);
+                        }
+                        else break;
+                    }
+                    Thread.Sleep(100);
                 }
-                else
-                {
-                    Snak.Move();
-                }
-
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    Snak.HandleKey(key.Key);
-                }
-                Thread.Sleep(100);
-              
+                Console.Clear();
             }
-
-           
-           
-            //Console.ReadLine();
         }
-
        
     }
 }
