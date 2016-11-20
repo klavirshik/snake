@@ -26,22 +26,22 @@ namespace Snake
             Point p = new Point(4,10,'*');
             snake Snak = new snake(p, 3, Direction.RIGHT);
             Snak.Draw();
-            Snak.Move();
-            Thread.Sleep(300);
-            Snak.Move();
-            Thread.Sleep(300);
-            Snak.Move();
-            Thread.Sleep(300);
-            Snak.Move();
-            Thread.Sleep(300);
-            Snak.Move();
-            Thread.Sleep(300);
-            Snak.Move();
-            Thread.Sleep(300);
-            Snak.Move();
-            Thread.Sleep(300);
+           
 
-            Console.ReadLine();
+            while(true)
+            {
+                if(Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    Snak.HandleKey(key.Key);
+                }
+                Thread.Sleep(100);
+                Snak.Move();
+            }
+
+           
+           
+            //Console.ReadLine();
         }
 
        
