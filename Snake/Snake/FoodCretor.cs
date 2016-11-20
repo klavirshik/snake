@@ -20,11 +20,12 @@ namespace Snake
             this.sym = sym;
         }
 
-        public Point CreateFood()
+        public Food CreateFood()
         {
             int x = rnd.Next(2, xMapSize - 2);
             int y = rnd.Next(2, yMapSize - 2);
-            return new Point(x, y, sym);
+
+            return new Food(x, y, sym);
            
         }
        

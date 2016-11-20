@@ -24,9 +24,10 @@ namespace Snake
             Snak.Draw();
             
             FoodCretor FoodCr = new FoodCretor(80, 25, 'O');
-            Point food = FoodCr.CreateFood();
+            Food food = FoodCr.CreateFood();
+            
             food.Draw();
-
+            
 
 
 
